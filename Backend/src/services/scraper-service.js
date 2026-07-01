@@ -1,6 +1,4 @@
-// import axios from "axios";
 import * as cheerio from "cheerio";
-// import { text } from "express";
 import { chromium } from "playwright";
 
 
@@ -36,7 +34,7 @@ export const scraperWebSite = async (url) => {
 
         await page.waitForTimeout(2000);
 
-        
+
         const cookieBtn = page.getByRole("button", {
             name: /accept|agree|allow|ok/i,
         });

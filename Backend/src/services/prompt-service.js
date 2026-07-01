@@ -1,8 +1,29 @@
 import { Type } from "@google/genai";
 
+const sectionSchema = (description) => ({
+    type: Type.OBJECT,
+    description,
+    properties: {
+        score: {
+            type: Type.INTEGER,
+            description: "Score from 0 to 100",
+        },
+        reason: {
+            type: Type.STRING,
+            description: "Reason for the score",
+        },
+        evidence: {
+            type: Type.ARRAY,
+            description: "Evidence found on the landing page",
+            items: {
+                type: Type.STRING,
+            },
+        },
+    },
+});
 
 
-const responseSchema = {
+export const geminiResponseSchema = {
     type: Type.OBJECT,
     properties: {
         overallScore: {
@@ -121,9 +142,11 @@ const responseSchema = {
 };
 
 
-const prompt = `You are a Senior Conversion Rate Optimization (CRO) Expert with experience in eCommerce, paid advertising, UX, and landing page optimization.
-Your job is to compare an advertisement with its landing page and determine how well the landing page fulfills the promise made in the advertisement.
+export const promptService = (ad, landingPage) => {
+    return `You are a Senior Conversion Rate Optimization (CRO) Expert with experience in eCommerce, paid advertising, UX, and landing page optimization.
+Your job is to compare an advertisement : ${ad}  with its landing page : ${landingPage}  and determine how well the landing page fulfills the promise made in the advertisement.
 Your analysis must be evidence-based. Never make assumptions that are not supported by the provided landing page content.
 If information is missing from the landing page, explicitly state that it was not found instead of inventing details.
 Evaluate the landing page from the perspective of a first-time visitor.
-Return ONLY valid JSON following the provided schema. ${responseSchema}`
+Return ONLY valid JSON following the provided schema. `
+}
