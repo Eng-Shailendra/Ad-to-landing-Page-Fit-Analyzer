@@ -66,7 +66,7 @@ const HomePage = () => {
 
       //! this ai api call
       setLoading(true);
-      const response = generateAnalysis(formData);
+      const response = await generateAnalysis(formData);
       setAnalysis(response.data.data);
     } catch (err) {
       console.log(err);
