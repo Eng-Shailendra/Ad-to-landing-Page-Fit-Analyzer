@@ -1,11 +1,17 @@
 import axios from "axios";
 
-export const generateAnalysis = async (formdata ) => {
-    const res = await axios.post(`${import.meta.env.VITE_API_PATH}/analyze`, formdata,
-        {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            }
-        });
-    return res
+const api = axios.create({
+    baseURL: `${import.meta.env.VITE_API_PATH}`,
+    
+});
+
+export const generateAnalysis = async (formdata) => {
+    try {
+        const res = await api.post("/analyze", formdata,);
+        console.log("Api responce", res.data);
+        return res;
+    } catch (err) {
+        console.log(err);
+    }
+
 }

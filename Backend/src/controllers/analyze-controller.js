@@ -7,7 +7,8 @@ export const analyzeController = async (req, res) => {
 
         const { adText = " ", url } = req.body;
         const adImage = req.file;
-        
+
+
         if (!url?.trim()) {
             return res.status(400).json({
                 success: false,
@@ -23,9 +24,12 @@ export const analyzeController = async (req, res) => {
 
         const pageData = await scraperWebSite(url);
         const analysis = await generateAnalysis(adText, adImage, pageData);
-        res.json({
+        console.log(analysis);
+
+        return res.status(200).json({
             success: true,
-            data: analysis,
+            message: "Successfully  analysis done",
+            data: analysis
         });
     } catch (err) {
         console.log(err)
